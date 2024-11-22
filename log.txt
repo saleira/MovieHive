@@ -1,66 +1,9 @@
-URL: /
-Timestamp: Thu Nov 21 2024 18:42:34 GMT+0000 (Western European Standard Time)
-
-URL: /favicon.ico
-Timestamp: Thu Nov 21 2024 18:42:34 GMT+0000 (Western European Standard Time)
-
-URL: /document
-Timestamp: Thu Nov 21 2024 18:42:42 GMT+0000 (Western European Standard Time)
-
-URL: /document
-Timestamp: Thu Nov 21 2024 18:42:46 GMT+0000 (Western European Standard Time)
-
-URL: /
-Timestamp: Thu Nov 21 2024 18:44:58 GMT+0000 (Western European Standard Time)
-
-URL: /favicon.ico
-Timestamp: Thu Nov 21 2024 18:44:59 GMT+0000 (Western European Standard Time)
-
-URL: /
-Timestamp: Thu Nov 21 2024 18:45:50 GMT+0000 (Western European Standard Time)
-
-URL: /favicon.ico
-Timestamp: Thu Nov 21 2024 18:45:51 GMT+0000 (Western European Standard Time)
-
-URL: /documentation
-Timestamp: Thu Nov 21 2024 18:45:57 GMT+0000 (Western European Standard Time)
-
-URL: /test
-Timestamp: Thu Nov 21 2024 18:46:21 GMT+0000 (Western European Standard Time)
-
-URL: /documentation
-Timestamp: Thu Nov 21 2024 18:46:41 GMT+0000 (Western European Standard Time)
-
-URL: /
-Timestamp: Thu Nov 21 2024 18:47:06 GMT+0000 (Western European Standard Time)
-
-URL: /favicon.ico
-Timestamp: Thu Nov 21 2024 18:47:06 GMT+0000 (Western European Standard Time)
-
-URL: /
-Timestamp: Thu Nov 21 2024 18:47:24 GMT+0000 (Western European Standard Time)
-
-URL: /documentation
-Timestamp: Thu Nov 21 2024 18:47:28 GMT+0000 (Western European Standard Time)
-
-URL: /askhfgsdfg
-Timestamp: Thu Nov 21 2024 18:48:38 GMT+0000 (Western European Standard Time)
-
-URL: /documentation
-Timestamp: Thu Nov 21 2024 18:48:46 GMT+0000 (Western European Standard Time)
-
-URL: /
-Timestamp: Thu Nov 21 2024 18:49:36 GMT+0000 (Western European Standard Time)
-
-URL: /documentation
-Timestamp: Thu Nov 21 2024 18:49:42 GMT+0000 (Western European Standard Time)
-
-URL: /
-Timestamp: Thu Nov 21 2024 18:50:02 GMT+0000 (Western European Standard Time)
-
-URL: /documentation
-Timestamp: Thu Nov 21 2024 18:50:24 GMT+0000 (Western European Standard Time)
-
-URL: /asdasd
-Timestamp: Thu Nov 21 2024 18:50:27 GMT+0000 (Western European Standard Time)
-
+::ffff:127.0.0.1 - - [22/Nov/2024:18:19:40 +0000] "GET /documentation.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0"
+::ffff:127.0.0.1 - - [22/Nov/2024:18:19:44 +0000] "GET /movies HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0"
+::ffff:127.0.0.1 - - [22/Nov/2024:18:19:46 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0"
+::ffff:127.0.0.1 - - [22/Nov/2024:18:22:28 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0"
+::ffff:127.0.0.1 - - [22/Nov/2024:18:22:33 +0000] "GET /ajsydgasd HTTP/1.1" 404 148 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0"
+::ffff:127.0.0.1 - - [22/Nov/2024:18:22:53 +0000] "GET /ajsydgasd HTTP/1.1" 404 148 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0"
+::ffff:127.0.0.1 - - [22/Nov/2024:18:23:09 +0000] "GET /ajsydgasd HTTP/1.1" 404 148 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0"
+::ffff:127.0.0.1 - - [22/Nov/2024:18:25:20 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0"
+::ffff:127.0.0.1 - - [22/Nov/2024:18:25:25 +0000] "GET /movies HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0"
