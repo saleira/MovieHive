@@ -5,7 +5,7 @@ const express = require('express'),
 
 const app = express();
 
-let topMovies = [
+const topMovies = [
     {
         title: 'Scott Pilgrim vs. the World',
         directed: '	Edgar Wright'
@@ -54,13 +54,11 @@ let topMovies = [
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' })
 
+// Middleware
 app.use(morgan('combined', { stream: accessLogStream }));
 app.use(express.static('public'));
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(404).send('Not Found!');
-});
 
+// Routes
 app.get('/', (req, res) => {
     res.send('Welcome to my app!');
 });
@@ -69,7 +67,18 @@ app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
 
+// Error handling
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(404).send('Not Found!');
+});
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
 // listen for requests
-app.listen(8080, () => {
-    console.log('Your app is listening on port 8080.');
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Your app is listening on port ${PORT}.`);
 });
