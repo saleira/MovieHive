@@ -3,13 +3,175 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <title>Document</title>
+        <style>
+            /* Reduce font size for better table fit */
+            table {
+                font-size: 0.9rem; /* Adjust as necessary */
+            }
+            .container {
+                max-width: 100%; /* Ensure container takes full viewport width if needed */
+            }
+        </style>
     </head>
     <body>
-        <h1>Documentation</h1>
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam commodi aspernatur, at libero voluptas deserunt sit illo omnis consequatur nesciunt a reiciendis! Error illum corporis consequuntur quaerat nemo eum maiores?
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. A quibusdam voluptatum nesciunt dolorem illum dicta libero sequi ab officia unde fugiat, vel quas ea fugit enim voluptatibus beatae. Hic, tempore.
-        </p>
+        <h1 class="text-center">Documentation</h1>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-bordered table-dark">
+                    <thead>
+                        <tr>
+                        <th scope="col">Bussiness Logic</th>
+                        <th scope="col">URL</th>
+                        <th scope="col">HTTP Method</th>
+                        <th scope="col">Request body data format</th>
+                        <th scope="col">Response body data format</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Get a list of Movies</td>
+                            <td>/movies</td>
+                            <td>GET</td>
+                            <td>None</td>
+                            <td>A JSON object holding data about all the movies</td>
+                        </tr>
+                        <tr>
+                            <td>Get data about a single Movie by title</td>
+                            <td>/movies/[title]</td>
+                            <td>GET</td>
+                            <td>None</td>
+                            <td class="text-wrap">A JSON object holding data about a single movie, containing an ID, title, description, genre, imageURL, actors, and director. Example:
+                                <pre class="text-info">
+{
+    "id": "1",
+    "title": "Scott Pilgrim vs. the World",
+    "directed": "Edgar Wright",
+    "description": "Scott Pilgrim must defeat his new...",
+    "genre": [
+        "Action",
+        "Comedy",
+        "Romance"
+    ],
+    "imageURL": "https://image.tmdb.org/t/....",
+    "actors": [
+        "Michael Cera",
+        "Mary Elizabeth Winstead",
+        "Kieran Culkin"
+    ],
+    "director": "Edgar Wright"
+}
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Get a list of movies by their genre</td>
+                            <td>/genres/[genre]</td>
+                            <td>GET</td>
+                            <td>None</td>
+                            <td>A JSON object holding data about movies with the genre passed</td>
+                        </tr>
+                        <tr>
+                            <td>Get a list of Directors</td>
+                            <td>/directors</td>
+                            <td>GET</td>
+                            <td>None</td>
+                            <td>A JSON object holding data about all the directors</td>
+                        </tr>
+                        <tr>
+                            <td>Get data about a single director by name</td>
+                            <td>/directors/[name]</td>
+                            <td>GET</td>
+                            <td>None</td>
+                            <td class="text-wrap">A JSON object holding data about a single director, containing an ID, name, bio, birthYear, and deathYear. Example:
+                                <pre class="text-info">
+{
+    "id": 4,
+    "name": "Christopher Nolan",
+    "bio": "British-American filmmaker renowned for...",
+    "birthYear": 1970,
+    "deathYear": null
+}
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Create a user</td>
+                            <td>/regist</td>
+                            <td>POST</td>
+                            <td class="text-wrap">A JSON object holding data about the user to add, strutured like this:
+                                <pre class="text-info">
+{
+    "name": "John",
+    "username": "john123",
+    "email": "test@email.com",
+    "password": "password",
+    "dateOfBirth": "1990-01-01"
+}
+                                </pre>
+                            </td>
+                            <td>A text message indicating that the registration was sucessfully</td>
+                        </tr>
+                        <tr>
+                            <td>Get a list of users</td>
+                            <td>/users</td>
+                            <td>GET</td>
+                            <td>None</td>
+                            <td>A JSON object holding data about all the users</td>
+                        </tr>
+                        <tr>
+                            <td>Update certan informations about a user by their id</td>
+                            <td>/users/[id]</td>
+                            <td>PUT</td>
+                            <td class="text-wrap">A JSON object holding data about the user to update. Can update the username, email, password and dateOfBirth. Example:
+                                <pre class="text-info">
+{
+    "password": "NewPassword"
+}
+                                </pre>
+                            </td>
+                            <td>A text message indicating that the update was sucessfully</td>
+                        </tr>
+                                        <tr>
+                            <td>Add a new movie</td>
+                            <td>/movies</td>
+                            <td>POST</td>
+                            <td class="text-wrap">A JSON object holding data about the movie to add, strutured like this:
+                                <pre class="text-info">
+{
+    "title": "Scott Pilgrim vs. the World",
+    "directed": "Edgar Wright",
+    "description": "Scott Pilgrim must defeat...",
+    "genre": [
+        "Action",
+        "Comedy",
+        "Romance"
+    ],
+    "imageURL": "https://image.tmdb.org/t/p/original/gseLBM6CzrwubkvGAqOsVd7FtKn.jpg",
+    "actors": [
+        "Michael Cera",
+        "Mary Elizabeth Winstead",
+        "Kieran Culkin"
+    ],
+    "director": "Edgar Wright"
+}
+                                </pre>
+                            </td>
+                            <td>A text message indicating that the movie was sucessfully added</td>
+                        </tr>
+                        <tr>
+                            <td>Get a list of users</td>
+                            <td>/movies/[id]</td>
+                            <td>DELETE</td>
+                            <td>None</td>
+                            <td>A text message indicating wether the movie was successfully removed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
 </html>
