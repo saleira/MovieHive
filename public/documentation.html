@@ -45,22 +45,22 @@
                             <td class="text-wrap">A JSON object holding data about a single movie, containing an ID, title, description, genre, imageURL, actors, and director. Example:
                                 <pre class="text-info">
 {
-    "id": "1",
-    "title": "Scott Pilgrim vs. the World",
-    "directed": "Edgar Wright",
-    "description": "Scott Pilgrim must defeat his new...",
-    "genre": [
-        "Action",
-        "Comedy",
-        "Romance"
-    ],
-    "imageURL": "https://image.tmdb.org/t/....",
-    "actors": [
-        "Michael Cera",
-        "Mary Elizabeth Winstead",
-        "Kieran Culkin"
-    ],
-    "director": "Edgar Wright"
+    "Genre": {
+        "Name": "Science Fiction",
+        "Description": "Fictional stories exploring futuristic science and technology."
+    },
+    "Director": {
+        "Name": "Christopher Nolan",
+        "Bio": "A British-American filmmaker known for his innovative storytelling.",
+        "BirthYear": 1970,
+        "DeathYear": null
+    },
+    "Actors": [],
+    "_id": "6744d5639548239df80d8190",
+    "Title": "Inception",
+    "Description": "A mind-bending thriller where a thief who enters the dreams of others must perform inception.",
+    "ImagePath": "inception.png",
+    "Feature": true
 }
                                 </pre>
                             </td>
@@ -73,46 +73,64 @@
                             <td>A JSON object holding data about movies with the genre passed</td>
                         </tr>
                         <tr>
-                            <td>Get a list of Directors</td>
-                            <td>/directors</td>
-                            <td>GET</td>
-                            <td>None</td>
-                            <td>A JSON object holding data about all the directors</td>
-                        </tr>
-                        <tr>
-                            <td>Get data about a single director by name</td>
-                            <td>/directors/[name]</td>
-                            <td>GET</td>
-                            <td>None</td>
-                            <td class="text-wrap">A JSON object holding data about a single director, containing an ID, name, bio, birthYear, and deathYear. Example:
-                                <pre class="text-info">
-{
-    "id": 4,
-    "name": "Christopher Nolan",
-    "bio": "British-American filmmaker renowned for...",
-    "birthYear": 1970,
-    "deathYear": null
-}
-                                </pre>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Create a user</td>
-                            <td>/regist</td>
+                            <td>Add a new movie</td>
+                            <td>/movies</td>
                             <td>POST</td>
-                            <td class="text-wrap">A JSON object holding data about the user to add, strutured like this:
+                            <td class="text-wrap">A JSON object holding data about the movie to add, strutured like this:
                                 <pre class="text-info">
 {
-    "name": "John",
-    "username": "john123",
-    "email": "test@email.com",
-    "password": "password",
-    "dateOfBirth": "1990-01-01"
+    "Genre": {
+        "Name": "Science Fiction",
+        "Description": "Fictional stories exploring futuristic science and technology."
+    },
+    "Director": {
+        "Name": "Christopher Nolan",
+        "Bio": "A British-American filmmaker known for his innovative storytelling.",
+        "BirthYear": 1970,
+        "DeathYear": null
+    },
+    "Actors": [],
+    "Title": "Inception Duplicate",
+    "Description": "A mind-bending thriller where a thief who enters the dreams of others must perform inception.",
+    "ImagePath": "inception.png",
+    "Feature": true
 }
                                 </pre>
                             </td>
-                            <td>A text message indicating that the registration was sucessfully</td>
+                            <td>A JSON object holding data about the movie added</td>
                         </tr>
+                        <tr>
+                            <td>Get a genre informations by name</td>
+                            <td>/movies/genres/[genreName]</td>
+                            <td>GET</td>
+                            <td>None</td>
+                            <td>A JSON object holding data about the genre
+                                <pre class="text-info">
+{
+    "Name": "Comedy",
+    "Description": "Films designed to make the audience laugh."
+}
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Get a director informations by name</td>
+                            <td>/movies/directors/[directorName]</td>
+                            <td>GET</td>
+                            <td>None</td>
+                            <td>A JSON object holding data about the director
+                                <pre class="text-info">
+{
+    "Name": "Christopher Nolan",
+    "Bio": "A British-American filmmaker known for his innovative storytelling.",
+    "BirthYear": 1970,
+    "DeathYear": null
+}
+                                </pre>
+                            </td>
+                        </tr>
+
+
                         <tr>
                             <td>Get a list of users</td>
                             <td>/users</td>
@@ -121,51 +139,88 @@
                             <td>A JSON object holding data about all the users</td>
                         </tr>
                         <tr>
-                            <td>Update certan informations about a user by their id</td>
-                            <td>/users/[id]</td>
-                            <td>PUT</td>
-                            <td class="text-wrap">A JSON object holding data about the user to update. Can update the username, email, password and dateOfBirth. Example:
+                            <td>Get data about a single user by username</td>
+                            <td>/users/[username]</td>
+                            <td>GET</td>
+                            <td>None</td>
+                            <td class="text-wrap">A JSON object holding data about a single user, containing an ID, name, username, Email, Birthday and FavoriteMovies. Example:
                                 <pre class="text-info">
 {
-    "password": "NewPassword"
+    "_id": "6744d6989548239df80d819a",
+    "Name": "Alice Johnson",
+    "Username": "alicej",
+    "Email": "alice.new@example.com",
+    "Birthday": "1990-04-15T00:00:00.000Z",
+    "FavoriteMovies": [
+        "6744d5639548239df80d8190",
+        "6744d5639548239df80d8191"
+    ]
+}
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Update certan informations about a user by their username</td>
+                            <td>/users/[username]</td>
+                            <td>PUT</td>
+                            <td class="text-wrap">A JSON object holding data about the user to update. Can update the username, email, password and Birthday. Example:
+                                <pre class="text-info">
+{
+    "Name": "Test Updated"
 }
                                 </pre>
                             </td>
                             <td>A text message indicating that the update was sucessfully</td>
                         </tr>
-                                        <tr>
-                            <td>Add a new movie</td>
-                            <td>/movies</td>
+
+                        <tr>
+                            <td>Create a user</td>
+                            <td>/users</td>
                             <td>POST</td>
-                            <td class="text-wrap">A JSON object holding data about the movie to add, strutured like this:
+                            <td class="text-wrap">A JSON object holding data about the user to add, strutured like this:
                                 <pre class="text-info">
 {
-    "title": "Scott Pilgrim vs. the World",
-    "directed": "Edgar Wright",
-    "description": "Scott Pilgrim must defeat...",
-    "genre": [
-        "Action",
-        "Comedy",
-        "Romance"
-    ],
-    "imageURL": "https://image.tmdb.org/t/p/original/gseLBM6CzrwubkvGAqOsVd7FtKn.jpg",
-    "actors": [
-        "Michael Cera",
-        "Mary Elizabeth Winstead",
-        "Kieran Culkin"
-    ],
-    "director": "Edgar Wright"
+    "Name": "Test",
+    "Username": "test123",
+    "Email": "teste@mail.com"
 }
                                 </pre>
                             </td>
-                            <td>A text message indicating that the movie was sucessfully added</td>
+                            <td>A JSON object holding data about the created user</td>
                         </tr>
                         <tr>
-                            <td>Get a list of users</td>
-                            <td>/movies/[id]</td>
+                            <td>Add a movie to a user's list of favorites movies</td>
+                            <td>/users/[username]/movies/[title]</td>
+                            <td>POST</td>
+                            <td class="text-wrap">None</td>
+                            <td>A JSON object holding data about the user to add, strutured like this:
+                                <pre class="text-info">
+{
+    "_id": "6745e2f5ee8135406eba3e5a",
+    "Name": "Test Updated",
+    "Username": "test123",
+    "Email": "teste@mail.com",
+    "FavoriteMovies": [
+        "6744d5639548239df80d8190"
+    ],
+    "__v": 0
+}
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Remove a movie of a user's list of favorites movies</td>
+                            <td>/users/[username]/movies/[title]</td>
                             <td>DELETE</td>
-                            <td>None</td>
-                            <td>A text message indicating wether the movie was successfully removed</td>
+                            <td class="text-wrap">None</td>
+                            <td>A text message indicating that the movie was sucessfully removed from the list of the favorites movies</td>
+                        </tr>
+                        <tr>
+                            <td>Remove a user by username</td>
+                            <td>/users/[username]</td>
+                            <td>DELETE</td>
+                            <td class="text-wrap">None</td>
+                            <td>A text message indicating that the user was sucessfully removed</td>
                         </tr>
                     </tbody>
                 </table>
