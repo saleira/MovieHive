@@ -39,6 +39,10 @@ require('./passport');
 
 
 // Routes
+app.get('/', (req, res) => {
+    res.send('Welcome to my Movie app!');
+})
+
 app.get('/documentation', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'documentation.html'));
 });
