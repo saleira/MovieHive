@@ -21,6 +21,9 @@ passport.use(new LocalStrategy(
                     message: 'Incorrect username or password.'
                 });
             }
+            if (!user.validatePassword(password)) {
+                return callback(null, false, {message: 'Incorrect password.'});
+            }
             return callback(null, user);
         } catch (err) {
             return callback(err);
