@@ -1,6 +1,5 @@
 const jwtSecret = 'ultra_secret_key_for_MovieHive_APIs';
 
-const { Router } = require('express');
 const jwt = require('jsonwebtoken'),
     passport = require('passport');
 
