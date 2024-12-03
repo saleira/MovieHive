@@ -3,8 +3,9 @@ const bodyParser = require('body-parser'),
     uuid = require('uuid'),
     path = require('path'),
     mongoose = require('mongoose'),
-    Models = require('./models.js');
-const e = require('express');
+    Models = require('./models.js'),
+    cors = require('cors'),
+    {check, validationResult} = require('express-validator');
 
 const Movies = Models.Movie;
 const Users = Models.User
@@ -16,6 +17,18 @@ mongoose.connect('mongodb://localhost:27017/MovieHive', { useNewUrlParser: true,
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
+const allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) { 
+            const message = "The CORS policy for this application doesn't allow access from origin " + origin;
+            return callback(new Error(message), false);
+        }
+        return callback(null, true);
+    }
+}));
 
 let auth = require('./auth')(app);
 const passport = require('passport');
@@ -147,7 +160,7 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
 // Get all users
 app.get('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
     try {
-        const users = await Users.find();
+        const users = await Users.find().select('Name Username Birthday FavoriteMovies -_id');
         res.json(users);
     } catch (err) {
         next(err);
@@ -157,7 +170,7 @@ app.get('/users', passport.authenticate('jwt', { session: false }), async (req, 
 app.get('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
     try {
         const username = req.params.username;
-        const userSelect = await Users.findOne({Username: username});
+        const userSelect = await Users.findOne({ Username: username }).select('Name Username Birthday FavoriteMovies -_id');
         
         if (!userSelect) {
             return next(createError(`The user with username '${req.params.username}' does not exist. Please check the username and try again.`, 404));
@@ -177,7 +190,6 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}), asyn
             $set: {
                 Name: req.body.Name,
                 Username: req.body.Username,
-                Password: req.body.Password,
                 Email: req.body.Email,
                 Birthday: req.body.Birthday
             }
@@ -191,27 +203,47 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}), asyn
     }    
 });
 //Add a user
-app.post('/users', async (req, res, next) => {
-    try {
-        if (!req.body.Name || !req.body.Username || !req.body.Email) {
-            return next(createError('Invalid request data. Please make sure all fields are provided and correctly formatted.', 400));
-        }
-        const existingUser = await Users.findOne({ Username: req.body.Username });
-        if (existingUser) {
-            return next(createError(`The username '${req.body.Username}' is already taken. Please choose a different username.`, 409));
-        }
-        const newUser = await Users.create({
-            Name: req.body.Name,
-            Username: req.body.Username,
-            Email: req.body.Email,
-            Birthday: req.body.Birthday
-        });
-        res.status(201).json(newUser);
+app.post('/users',
+    [
+        // Validation rules
+        check('Username', 'Username is required and should be at least 5 characters long.').isLength({min: 5}),
+        check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric(),
+        check('Name', 'Name is required.').not().isEmpty(),
+        check('Password', 'Password is required.').not().isEmpty(),
+        check('Email', 'Email does not appear to be valid.').isEmail(),
+        check('Birthday', 'Birthday format should be YYYY-MM-DD').isDate({format: 'YYYY-MM-DD'})
+    ],
+    async (req, res, next) => {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(422).json({errors: errors.array()});
+            }
 
-    } catch (err) {
-        next(err);
+            if (!req.body.Name || !req.body.Username || !req.body.Password || !req.body.Email) {
+                return next(createError('Invalid request data. Please make sure all fields are provided and correctly formatted.', 400));
+            }
+
+            let hashedPassword = await Users.hashPassword(req.body.Password);
+
+            const existingUser = await Users.findOne({ Username: req.body.Username });
+            if (existingUser) {
+                return next(createError(`The username '${req.body.Username}' is already taken. Please choose a different username.`, 409));
+            }
+            const newUser = await Users.create({
+                Name: req.body.Name,
+                Username: req.body.Username,
+                Password: hashedPassword,
+                Email: req.body.Email,
+                Birthday: req.body.Birthday
+            });
+            res.status(201).json(newUser);
+        } catch (err) {
+            next(err);
+        }
     }
-});
+);
+
 // Add a movie to a user's list of favorites
 app.post('/users/:username/movies/:title', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
     try {
@@ -281,6 +313,6 @@ app.use((err, req, res, next) => {
 // ########################### LISTEN FOR REQUESTS ###########################
 // ###########################################################################
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`Your app is listening on port ${PORT}.`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Listening on port ${PORT}.`);
 });
