@@ -1,7 +1,39 @@
 
 # MovieHive Overview
 
-MovieHive is a web application that allows users to register, log in, and manage their favorite movies. It uses JWT authentication for securing routes and has functionality for handling user-related actions (such as login, registration, and managing favorite movies). The application has a MongoDB-backed database for storing data about movies and users.
+MovieHive is a backend API service designed to allow users to manage their movie preferences. The application provides functionality for user authentication, registration, and movie management via a set of RESTful API endpoints. It is built with **Node.js**, using **Express.js** for routing, and connects to a **MongoDB** database for persistent storage of user and movie data.
+
+## Key Features:
+- **User Authentication**: The API uses **JWT (JSON Web Token)** for secure user authentication. After successful login, users receive a token that is required for accessing protected routes.
+- **User Management**: Users can register, log in, and manage their movie preferences (add/remove favorite movies).
+- **Movie Management**: The API allows users to retrieve a list of movies, along with detailed information about each movie (e.g., title, description, genre, director).
+- **Secure Data Handling**: User passwords are securely hashed using **bcrypt** before being stored in the database.
+
+## Architecture and Components:
+- **Backend Framework**: The application is built using **Node.js** and **Express.js**, providing a fast and scalable backend API for movie-related data and user management.
+- **Authentication**: **Passport.js** is used to implement **local strategy** authentication (username and password) and **JWT-based** authorization for protecting sensitive routes.
+- **Database**: The API interacts with a **MongoDB** database using **Mongoose** to store and retrieve user and movie data.
+- **Environment Configuration**: Sensitive information, such as the JWT secret key, is managed using the **dotenv** library to securely store configuration values.
+
+## Main Features:
+- **Registration**: New users can sign up by providing their username, email, and password. Passwords are securely hashed using **bcrypt** before being stored.
+- **Login**: Existing users can log in by providing their username and password. Upon successful login, a **JWT token** is returned for further authentication.
+- **Movie Data**: Users can view a list of movies, including their title, description, genre, and director, through API endpoints. Each movie can be added to or removed from a user's list of favorite movies.
+- **JWT Authentication**: After logging in, users receive a JWT token, which must be included in the **Authorization** header of subsequent requests to access protected routes (such as retrieving or modifying user favorites).
+
+## Technologies Used:
+- **Node.js**: A JavaScript runtime used to build the backend of the application.
+- **Express.js**: A web framework for building the API, providing routing and middleware for handling requests.
+- **MongoDB**: A NoSQL database used to store data related to users and movies.
+- **Mongoose**: An ODM (Object Data Modeling) library for MongoDB, providing a more convenient way to interact with the database.
+- **Passport.js**: Middleware used for implementing authentication, including local strategy (username and password) and JWT-based authorization.
+- **JWT (JSON Web Token)**: A compact and self-contained way to securely transmit information between parties (in this case, for user authentication).
+- **bcrypt**: A library for securely hashing and validating passwords.
+
+## Security Considerations:
+- **Password Security**: User passwords are never stored in plain text; instead, they are hashed using **bcrypt** to ensure they are secure.
+- **JWT Authorization**: The application uses **JWT** to authorize users. Once logged in, users receive a token that must be sent with each request to access protected routes.
+- **Cross-Origin Resource Sharing (CORS)**: The application uses the **CORS** middleware to handle cross-origin requests, enabling the backend to serve data to different frontend applications.
 
 ## API Endpoints
 
