@@ -1,4 +1,4 @@
-const jwtSecret = 'ultra_secret_key_for_MovieHive_APIs';
+const jwtSecret = process.env.JWT_SECRET;
 
 const jwt = require('jsonwebtoken'),
     passport = require('passport');

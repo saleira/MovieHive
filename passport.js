@@ -3,6 +3,8 @@ const passport = require('passport'),
     Models = require('./models.js'),
     passportJWT = require('passport-jwt');
 
+const jwtSecret = process.env.JWT_SECRET;
+
 let Users = Models.User,
     JWTStrategy = passportJWT.Strategy,
     ExtractJWT = passportJWT.ExtractJwt;
@@ -34,7 +36,7 @@ passport.use(new LocalStrategy(
 passport.use(new JWTStrategy(
     {
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-        secretOrKey: 'ultra_secret_key_for_MovieHive_APIs'
+        secretOrKey: jwtSecret
     },
     async (jwtPayload, callback)  => {
         try {
