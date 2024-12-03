@@ -12,7 +12,9 @@ const Movies = Models.Movie;
 const Users = Models.User
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/MovieHive', { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect('mongodb://localhost:27017/MovieHive', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 // Middleware
 app.use(bodyParser.json());
