@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-const allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+const allowedOrigins = ['http://localhost:8080', 'https://movie-hive-ee3949a892be.herokuapp.com/'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
