@@ -51,7 +51,7 @@ app.get('/documentation', (req, res) => {
 // ################################## MOVIES #################################
 // ###########################################################################~
 // Get all movies
-app.get('/movies', async (req, res, next) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
     try {
         const movies = await Movies.find();
         res.json(movies);
