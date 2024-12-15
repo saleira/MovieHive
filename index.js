@@ -196,7 +196,6 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}), asyn
         const userUpdate = await Users.findOneAndUpdate({Username: req.params.username}, {
             $set: {
                 Name: req.body.Name,
-                Username: req.body.Username,
                 Email: req.body.Email,
                 Birthday: req.body.Birthday
             }
@@ -259,7 +258,7 @@ app.post('/users/:username/movies/:title', passport.authenticate('jwt', { sessio
             return next(createError(`The movie '${req.params.title}' does not exist. Please check the title and try again.`, 404));
         }
         const user = await Users.findOneAndUpdate({Username: req.params.username}, {
-            $push: {FavoriteMovies: movie.id}
+            $push: {FavoriteMovies: movie.Title}
         }, {new: true});
         res.json(user);
     } catch (err) {
@@ -274,7 +273,7 @@ app.delete('/users/:username/movies/:title', passport.authenticate('jwt', { sess
             return next(createError(`The movie '${req.params.title}' does not exist. Please check the title and try again.`, 404));
         }
         const user = await Users.findOneAndUpdate({Username: req.params.username}, {
-            $pull: {FavoriteMovies: movie.id}
+            $pull: {FavoriteMovies: movie.Title}
         }, {new: true});
         if (!user) {
             return next(createError(`The user with username '${req.params.username}' does not exist. Please check the username and try again.`, 404));
