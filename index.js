@@ -177,7 +177,7 @@ app.get('/users', passport.authenticate('jwt', { session: false }), async (req, 
 app.get('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
     try {
         const username = req.params.username;
-        const userSelect = await Users.findOne({ Username: username }).select('Name Username Email Birthday FavoriteMovies -_id');
+        const userSelect = await Users.findOne({ Username: username }).select('Name Username Email Birthday FavoriteMovies -Title');
         
         if (!userSelect) {
             return next(createError(`The user with username '${req.params.username}' does not exist. Please check the username and try again.`, 404));
