@@ -18,17 +18,29 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-const allowedOrigins = ['http://localhost:8080', 'https://movie-hive-ee3949a892be.herokuapp.com/', 'http://localhost:1234'];
-app.use(cors({
+const corsOptions = {
     origin: (origin, callback) => {
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) { 
-            const message = "The CORS policy for this application doesn't allow access from origin " + origin;
-            return callback(new Error(message), false);
+        const allowedOrigins = ['http://localhost:8080', 'https://movie-hive-ee3949a892be.herokuapp.com/', 'http://localhost:1234'];
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
         }
-        return callback(null, true);
-    }
-}));
+    },
+};
+app.use(cors(corsOptions));
+
+// const allowedOrigins = ['http://localhost:8080', 'https://movie-hive-ee3949a892be.herokuapp.com/', 'http://localhost:1234'];
+// app.use(cors({
+//     origin: (origin, callback) => {
+//         if (!origin) return callback(null, true);
+//         if (allowedOrigins.indexOf(origin) === -1) { 
+//             const message = "The CORS policy for this application doesn't allow access from origin " + origin;
+//             return callback(new Error(message), false);
+//         }
+//         return callback(null, true);
+//     }
+// }));
 
 let auth = require('./auth')(app);
 const passport = require('passport');
