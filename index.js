@@ -1,7 +1,6 @@
 require('dotenv').config();
 const bodyParser = require('body-parser'),
     express = require('express'),
-    uuid = require('uuid'),
     path = require('path'),
     mongoose = require('mongoose'),
     Models = require('./models.js'),
@@ -12,7 +11,6 @@ const Movies = Models.Movie;
 const Users = Models.User
 const app = express();
 
-//mongoose.connect('mongodb://localhost:27017/MovieHive', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
@@ -123,8 +121,8 @@ app.post('/movies', passport.authenticate('jwt', { session: false }), async (req
 app.delete('/movies/:title', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
     try {
         const title = req.params.title
-        const MovieDelete = await Movies.findOneAndDelete({Title: title});
-        if (!MovieDelete) {
+        const movieDelete = await Movies.findOneAndDelete({Title: title});
+        if (!movieDelete) {
             return next(createError(`The movie '${title}' does not exist. Please check the title and try again.`, 404));
         }
         res.status(200).send(`Movie '${title}' has been deleted successfully.`)
@@ -287,8 +285,8 @@ app.delete('/users/:username/movies/:title', passport.authenticate('jwt', { sess
 // Delete a user by username
 app.delete('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
     try {
-        const UserDelete = await Users.findOneAndDelete({Username: req.params.username});
-        if (!UserDelete) {
+        const userDelete = await Users.findOneAndDelete({Username: req.params.username});
+        if (!userDelete) {
             return next(createError(`The user with username '${req.params.username}' does not exist. Please check the username and try again.`, 404));
         }
         res.status(200).send(`User '${req.params.username}' has been deleted successfully.`);
