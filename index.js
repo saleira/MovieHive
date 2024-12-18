@@ -20,7 +20,7 @@ app.use(express.static('public'));
 
 const corsOptions = {
     origin: (origin, callback) => {
-        const allowedOrigins = ['http://localhost:8080', 'https://movie-hive-ee3949a892be.herokuapp.com/', 'http://localhost:1234'];
+        const allowedOrigins = ['http://localhost:8080', 'https://movie-hive-ee3949a892be.herokuapp.com/', 'http://localhost:1234', 'https://movie-hive-client.netlify.app/'];
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
