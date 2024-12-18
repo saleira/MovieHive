@@ -15,8 +15,8 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 
 
 // Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 const allowedOrigins = ['http://localhost:8080', 'https://movie-hive-ee3949a892be.herokuapp.com/', 'http://localhost:1234'];
